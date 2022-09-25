@@ -1,6 +1,7 @@
 package com.java.student.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,30 +27,31 @@ public class StudentServiceImpl implements StudentService{
 		
 		Student student1 = this.studentRepo.findById(studentId).orElseThrow(null);
 		student1.setName(student.getName());
-		student1.setCity(student.getCity());
 		student1.setPhone(student.getPhone());
+		student1.setCity(student.getCity());
 		
-		Student updatedStudent = this.studentRepo.save(student1);
-		
-		return updatedStudent;
+		Student savedStudent = this.studentRepo.save(student1);
+		return savedStudent;	
 	}
 
 	@Override
 	public List<Student> getStudents() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Student> students = this.studentRepo.findAll();
+		return students;
 	}
 
 	@Override
 	public Student getStudentById(Integer studentId) {
-		// TODO Auto-generated method stub
-		return null;
+		Student student = this.studentRepo.findById(studentId).orElseThrow(null);
+		
+		return student;
+		
 	}
 
 	@Override
 	public void deleteStudent(Integer studentID) {
-		// TODO Auto-generated method stub
-		
+		Student student = this.studentRepo.findById(studentID).orElseThrow(null);
+		this.studentRepo.delete(student);
 	}
 
 }
